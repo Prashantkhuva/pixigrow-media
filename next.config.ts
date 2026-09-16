@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
+  allowedDevOrigins: ["10.196.250.23"],
 };
 
 export default nextConfig;

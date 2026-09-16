@@ -1,8 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Container } from "@/components";
 import { DecorativeLeaf, DecorativeDots } from "./SvgDecorations";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 interface StatItem {
   value: number;
@@ -18,48 +24,40 @@ const stats: StatItem[] = [
 ];
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
-  const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
 
   useEffect(() => {
+    if (!ref.current || hasAnimated.current) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated.current) {
           hasAnimated.current = true;
-          animateCount();
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val: value,
+            duration: 2,
+            ease: "power2.out",
+            onUpdate: () => {
+              if (ref.current) {
+                ref.current.textContent = Math.round(obj.val) + suffix;
+              }
+            },
+          });
         }
       },
       { threshold: 0.5 }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+    observer.observe(ref.current);
 
     return () => observer.disconnect();
-  }, []);
-
-  function animateCount() {
-    const duration = 2000;
-    const steps = 60;
-    const increment = value / steps;
-    let current = 0;
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= value) {
-        setCount(value);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(current));
-      }
-    }, duration / steps);
-  }
+  }, [value, suffix]);
 
   return (
     <div ref={ref} className="text-4xl md:text-5xl font-bold text-primary">
-      {count}
-      {suffix}
+      0{suffix}
     </div>
   );
 }
