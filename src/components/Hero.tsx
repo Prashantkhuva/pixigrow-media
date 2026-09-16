@@ -4,11 +4,11 @@ import { Button, Container } from "@/components";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[600px] md:min-h-screen flex items-center bg-white overflow-hidden">
+    <section className="relative min-h-[500px] md:min-h-[85vh] flex items-center bg-white overflow-hidden">
       {/* Lime accent circle */}
       <div className="absolute -top-[150px] -right-[150px] w-[300px] md:w-[400px] h-[300px] md:h-[400px] rounded-full bg-accent/20 blur-3xl" />
 
-      <Container className="relative z-10 py-16 md:py-24">
+      <Container className="relative z-10 py-12 md:py-0">
         <div className="max-w-3xl">
           <p className="text-sm font-semibold text-primary mb-4 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
             RAJKOT&apos;S AI-FIRST BRAND AGENCY
