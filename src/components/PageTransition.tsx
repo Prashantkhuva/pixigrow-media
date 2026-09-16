@@ -2,8 +2,13 @@
 
 import { useEffect, useRef, ReactNode } from "react";
 import { usePathname } from "next/navigation";
+import gsap from "gsap";
 
-export default function PageTransition({ children }: { children: ReactNode }) {
+interface PageTransitionProps {
+  children: ReactNode;
+}
+
+export default function PageTransition({ children }: PageTransitionProps) {
   const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
   const isFirstLoad = useRef(true);
@@ -15,31 +20,39 @@ export default function PageTransition({ children }: { children: ReactNode }) {
     // Skip animation on first load
     if (isFirstLoad.current) {
       isFirstLoad.current = false;
-      container.style.opacity = "1";
-      container.style.transform = "translateY(0)";
+      gsap.set(container, { opacity: 1, y: 0, scale: 1 });
       return;
     }
 
-    // Reset for page transition
-    container.style.opacity = "0";
-    container.style.transform = "translateY(20px)";
-
-    // Animate in
-    requestAnimationFrame(() => {
-      container.style.transition = "opacity 0.4s ease-out, transform 0.4s ease-out";
-      container.style.opacity = "1";
-      container.style.transform = "translateY(0)";
-    });
-
-    // Scroll to top on page change
+    // Scroll to top
     window.scrollTo({ top: 0, behavior: "instant" });
+
+    // Exit animation
+    gsap.to(container, {
+      opacity: 0,
+      y: -15,
+      duration: 0.25,
+      ease: "power2.in",
+      onComplete: () => {
+        // Enter animation
+        gsap.fromTo(
+          container,
+          { opacity: 0, y: 25, scale: 0.99 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.5,
+            ease: "power3.out",
+            clearProps: "all",
+          }
+        );
+      },
+    });
   }, [pathname]);
 
   return (
-    <div
-      ref={containerRef}
-      style={{ opacity: 1, transform: "translateY(0)" }}
-    >
+    <div ref={containerRef} className="min-h-screen">
       {children}
     </div>
   );
