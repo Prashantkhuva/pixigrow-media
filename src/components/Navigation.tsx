@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -21,61 +21,80 @@ export default function Navigation() {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<(HTMLAnchorElement | null)[]>([]);
   const isOpenRef = useRef(false);
+  const tlRef = useRef<gsap.core.Timeline | null>(null);
 
   // Close menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
-  useEffect(() => {
+  const openMenu = useCallback(() => {
     const menu = mobileMenuRef.current;
     if (!menu) return;
+    isOpenRef.current = true;
 
-    if (isMobileMenuOpen && !isOpenRef.current) {
-      isOpenRef.current = true;
+    // Kill any running timeline
+    if (tlRef.current) tlRef.current.kill();
 
-      // Set initial state
-      gsap.set(menu, { height: "auto", display: "block" });
-      const fullHeight = menu.scrollHeight;
-      gsap.set(menu, { height: 0, overflow: "hidden" });
+    const tl = gsap.timeline();
+    tlRef.current = tl;
 
-      // Animate menu open
-      gsap.to(menu, {
-        height: fullHeight,
-        duration: 0.4,
-        ease: "power3.out",
-        onComplete: () => {
-          gsap.set(menu, { height: "auto", overflow: "visible" });
-        },
-      });
+    // Measure content
+    gsap.set(menu, { display: "block", height: "auto", overflow: "hidden" });
+    const fullHeight = menu.scrollHeight;
 
-      // Stagger links
-      const validLinks = linksRef.current.filter(Boolean);
-      gsap.fromTo(
-        validLinks,
-        { opacity: 0, x: -20 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.35,
-          stagger: 0.06,
-          ease: "power2.out",
-          delay: 0.1,
-        }
-      );
-    } else if (!isMobileMenuOpen && isOpenRef.current) {
-      isOpenRef.current = false;
+    tl.fromTo(
+      menu,
+      { height: 0, opacity: 0 },
+      { height: fullHeight, opacity: 1, duration: 0.45, ease: "power3.out" }
+    );
 
-      gsap.to(menu, {
-        height: 0,
-        duration: 0.3,
-        ease: "power2.in",
-        onComplete: () => {
-          gsap.set(menu, { display: "none", overflow: "hidden" });
-        },
-      });
+    // Stagger links in
+    const validLinks = linksRef.current.filter(Boolean);
+    tl.fromTo(
+      validLinks,
+      { opacity: 0, y: 12 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.35,
+        stagger: 0.05,
+        ease: "power2.out",
+      },
+      "-=0.25"
+    );
+
+    tl.set(menu, { height: "auto", overflow: "visible" });
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    const menu = mobileMenuRef.current;
+    if (!menu) return;
+    isOpenRef.current = false;
+
+    if (tlRef.current) tlRef.current.kill();
+
+    const tl = gsap.timeline();
+    tlRef.current = tl;
+
+    tl.to(menu, {
+      height: 0,
+      opacity: 0,
+      duration: 0.35,
+      ease: "power2.inOut",
+      onComplete: () => {
+        gsap.set(menu, { display: "none", overflow: "hidden" });
+      },
+    });
+  }, []);
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      openMenu();
+    } else if (isOpenRef.current) {
+      closeMenu();
     }
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, openMenu, closeMenu]);
 
   function toggleMenu() {
     setIsMobileMenuOpen((prev) => !prev);
@@ -128,36 +147,36 @@ export default function Navigation() {
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button — animated hamburger / X */}
           <button
             onClick={toggleMenu}
-            className="md:hidden relative w-10 h-10 flex items-center justify-center text-dark"
+            className="md:hidden relative w-10 h-10 flex items-center justify-center z-50"
             aria-label="Toggle menu"
           >
-            <div className="w-5 flex flex-col gap-1.5">
-              <span
-                className={clsx(
-                  "block h-0.5 bg-dark transition-all duration-300 origin-center",
-                  isMobileMenuOpen
-                    ? "rotate-45 translate-y-[4px]"
-                    : "rotate-0"
-                )}
-              />
-              <span
-                className={clsx(
-                  "block h-0.5 bg-dark transition-all duration-300",
-                  isMobileMenuOpen ? "opacity-0 scale-x-0" : "opacity-100 scale-x-100"
-                )}
-              />
-              <span
-                className={clsx(
-                  "block h-0.5 bg-dark transition-all duration-300 origin-center",
-                  isMobileMenuOpen
-                    ? "-rotate-45 -translate-y-[4px]"
-                    : "rotate-0"
-                )}
-              />
-            </div>
+            <span
+              className={clsx(
+                "absolute block w-5 h-0.5 bg-dark rounded-full transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]",
+                isMobileMenuOpen
+                  ? "rotate-45 translate-y-0"
+                  : "-translate-y-[6px] rotate-0"
+              )}
+            />
+            <span
+              className={clsx(
+                "absolute block w-5 h-0.5 bg-dark rounded-full transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]",
+                isMobileMenuOpen
+                  ? "opacity-0 scale-x-0"
+                  : "opacity-100 scale-x-100 translate-y-0"
+              )}
+            />
+            <span
+              className={clsx(
+                "absolute block w-5 h-0.5 bg-dark rounded-full transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]",
+                isMobileMenuOpen
+                  ? "-rotate-45 translate-y-0"
+                  : "translate-y-[6px] rotate-0"
+              )}
+            />
           </button>
         </div>
       </Container>
@@ -165,8 +184,8 @@ export default function Navigation() {
       {/* Mobile Menu */}
       <div
         ref={mobileMenuRef}
-        className="md:hidden overflow-hidden"
-        style={{ display: "none", height: 0 }}
+        className="md:hidden"
+        style={{ display: "none", height: 0, overflow: "hidden" }}
       >
         <div className="bg-white/95 backdrop-blur-xl border-t border-border">
           <Container>
@@ -178,7 +197,7 @@ export default function Navigation() {
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={clsx(
-                    "block py-3 px-4 text-base font-medium rounded-xl transition-all duration-200",
+                    "block py-3 px-4 text-base font-medium rounded-xl transition-colors duration-200",
                     pathname === link.href
                       ? "text-primary bg-primary/5"
                       : "text-dark hover:text-primary hover:bg-light"
