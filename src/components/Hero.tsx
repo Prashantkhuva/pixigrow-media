@@ -8,7 +8,7 @@ export default function Hero() {
       {/* Lime accent circle */}
       <div className="absolute -top-[150px] -right-[150px] w-[300px] md:w-[400px] h-[300px] md:h-[400px] rounded-full bg-accent/20 blur-3xl" />
 
-      <Container className="relative z-10 py-20 md:py-0">
+      <Container className="relative z-10 py-16 md:py-24">
         <div className="max-w-3xl">
           <p className="text-sm font-semibold text-primary mb-4 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
             RAJKOT&apos;S AI-FIRST BRAND AGENCY
