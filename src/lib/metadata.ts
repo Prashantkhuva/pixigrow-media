@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-const baseUrl = "https://pixigrowmedia.com";
+const baseUrl = "https://pixigrow-media.vercel.app";
 
 interface PageSEO {
   title: string;
@@ -11,32 +11,38 @@ interface PageSEO {
 
 export const seoData: Record<string, PageSEO> = {
   home: {
-    title: "PixiGrow Media - 360° Brand Agency Rajkot | Strategy, Celebs, PR & IPs",
-    description: "Strategy, Celebs, PR & IPs. We do it all. PixiGrow Media helps brands grow through strategic marketing, creative content, and data-driven campaigns.",
+    title:
+      "PixiGrow Media - 360° Brand Agency Rajkot | Strategy, Celebs, PR & IPs",
+    description:
+      "Strategy, Celebs, PR & IPs. We do it all. PixiGrow Media helps brands grow through strategic marketing, creative content, and data-driven campaigns.",
     path: "/",
     image: "/og-image.png",
   },
   services: {
     title: "Our Services - Strategy, Content, PR, Production | PixiGrow Media",
-    description: "Full-spectrum brand transformation. Strategy, social content, celebrity partnerships, PR, production, and performance marketing.",
+    description:
+      "Full-spectrum brand transformation. Strategy, social content, celebrity partnerships, PR, production, and performance marketing.",
     path: "/services",
     image: "/og-services.png",
   },
   work: {
     title: "Recent Work & Case Studies | PixiGrow Media",
-    description: "See our portfolio of successful brand campaigns and transformations across industries.",
+    description:
+      "See our portfolio of successful brand campaigns and transformations across industries.",
     path: "/work",
     image: "/og-work.png",
   },
   about: {
     title: "About PixiGrow Media - Rajkot Brand Agency",
-    description: "Meet the team behind PixiGrow Media. Rajkot-born, India-wide brand agency.",
+    description:
+      "Meet the team behind PixiGrow Media. Rajkot-born, India-wide brand agency.",
     path: "/about",
     image: "/og-about.png",
   },
   contact: {
     title: "Contact PixiGrow Media - Get in Touch",
-    description: "Let's talk strategy. Drop us a line and we'll get back to you in 24 hours.",
+    description:
+      "Let's talk strategy. Drop us a line and we'll get back to you in 24 hours.",
     path: "/contact",
     image: "/og-contact.png",
   },

@@ -4,8 +4,8 @@ export const siteConfig: SiteConfig = {
   name: "PixiGrow Media",
   description:
     "PixiGrow Media helps brands grow through strategic digital marketing, creative content, and data-driven campaigns.",
-  url: "https://pixigrowmedia.com",
-  ogImage: "https://pixigrowmedia.com/og.jpg",
+  url: "https://pixigrow-media.vercel.app",
+  ogImage: "https://pixigrow-media.vercel.app/og.jpg",
   links: {
     twitter: "https://twitter.com/pixigrowmedia",
     github: "https://github.com/pixigrowmedia",

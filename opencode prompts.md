@@ -2,6 +2,7 @@
 
 **Tech Stack:** Next.js 14+ (App Router) | TypeScript | Tailwind CSS | GSAP | Lenis | Framer Motion  
 **Color System:**
+
 - Primary Blue: `#2A3BF5`
 - Accent Lime: `#D4F53B`
 - Dark: `#1a1a1a`
@@ -149,7 +150,7 @@ Requirements:
      a. IconBox (lime bg, 48px) with emoji
      b. H3 title (18px, bold, #1a1a1a)
      c. P description (14px, #666)
-   
+
 3. **Card Services (exact copy):**
    - 📊 Strategy | "Data-driven brand positioning and campaign planning"
    - 📱 Social & Content | "Viral-worthy creative and consistent community growth"
@@ -190,7 +191,7 @@ Requirements:
      b. Client name (bold, 16px)
      c. Challenge → Result headline (14px, #666)
      d. Metric in bold: "300% reach growth" / "50 media mentions" (18px, bold blue)
-   
+
 3. **Sample Cards** (use placeholder data):
    - Card 1: "Luxury Brand Co" | "Launched new product line" → "300% Instagram reach growth"
    - Card 2: "Local Startup" | "Built brand from zero" → "50 media mentions in 3 months"
@@ -303,12 +304,12 @@ Requirements:
    - Brand area (top):
      - Logo/text: "PixiGrow Media" (bold, 18px)
      - Tagline: "Strategy • Celebs • PR • IPs" (14px, #999)
-   
+
    - Links grid (3 columns):
      a. **Services** | Strategy, Social, Celebrity, PR, Production
      b. **Company** | About, Contact, Careers
      c. **Legal** | Privacy Policy, Terms of Service
-   
+
    - Bottom bar:
      - Email: contact@pixigrowmedia.com (blue link)
      - Social links: IG, LinkedIn (icons, white, hover blue)
@@ -352,7 +353,7 @@ Structure:
      d. Expanded details (optional, initially hidden):
         - "What's included" bullet list (optional, show on hover/accordion)
      e. CTA link: "Learn more" → /services/[service-slug]
-   
+
 3. **Reusable Data**
    Use exact same 6 services from homepage. Each card clickable to detail page.
 
@@ -447,12 +448,12 @@ Structure (app/work/page.tsx):
      - Thumbnail: Blue-to-lime gradient
      - Client: "Brand Co"
      - Metric: "300% Instagram reach growth"
-   
+
    - Case Study 2: "Startup Brand Build"
      - Thumbnail: Lime-to-blue gradient
      - Client: "StartUp Inc"
      - Metric: "50 media mentions"
-   
+
    (Add more as content becomes available)
 
 5. **Bottom CTA**
@@ -485,7 +486,7 @@ Structure (app/work/[slug]/page.tsx):
      a. **Client** heading + name
      b. **Challenge** heading + 1-2 sentences
      c. **Approach** heading + 1-2 sentences
-   
+
 3. **Results Block**
    - Section bg: #f5f5f5
    - H2: "Results"
@@ -607,7 +608,7 @@ Structure (app/contact/page.tsx):
         Options: Strategy, Content, PR, Influencer, Production, Other
      e. Brief (textarea, required)
      f. Submit button (blue, 16px, padding 14px 32px)
-   
+
    - Styling:
      - Input bg: white, border 1px #e0e0e0
      - Focus: border blue (#2A3BF5), shadow
@@ -654,17 +655,17 @@ Build a reusable Navigation component and update root layout for PixiGrow Media.
      - About (href="/about")
      - Contact (href="/contact")
    - CTA Button: "Let's talk" (blue, small) → href="/contact"
-   
+
    - Styling:
      - Nav items: 14px, #1a1a1a, weight 500
      - Hover: underline or color shift to blue (200ms transition)
      - Padding: 16px 40px (desktop), 16px 20px (mobile)
-   
+
    - Mobile Menu:
      - Hamburger icon on mobile (<768px)
      - Slide-out menu (Framer Motion), overlay backdrop
      - Same links, stacked vertically
-   
+
    - Animation:
      - Logo fade-in on mount (GSAP)
      - Links stagger-fade in
@@ -707,7 +708,7 @@ Setup global animations and smooth scrolling for PixiGrow Media website.
      b. staggerFadeIn(elements, delay=150) - stagger children
      c. countUp(element, targetNum, duration) - animate numbers (KPIs)
      d. slideInFromSide(element, direction='left') - slide animations
-   
+
 3. **Intersection Observer Setup** (lib/useInView.ts)
    - Custom hook to trigger animations on scroll
    - Applies to: sections, cards, headings
@@ -752,59 +753,67 @@ Create TypeScript types and data structures for PixiGrow Media website.
 Create types/index.ts with:
 
 1. **Service Type**
-   ```
-   type Service = {
-     id: string
-     title: string
-     description: string
-     icon: string
-     details?: string[]
-   }
-   ```
+```
+
+type Service = {
+id: string
+title: string
+description: string
+icon: string
+details?: string[]
+}
+
+```
 
 2. **CaseStudy Type**
-   ```
-   type CaseStudy = {
-     id: string
-     title: string
-     client: string
-     challenge: string
-     approach: string
-     results: {
-       metric: string
-       value: string | number
-     }[]
-     thumbnail: string
-     gallery: string[]
-     testimonial?: {
-       quote: string
-       author: string
-       role: string
-     }
-   }
-   ```
+```
+
+type CaseStudy = {
+id: string
+title: string
+client: string
+challenge: string
+approach: string
+results: {
+metric: string
+value: string | number
+}[]
+thumbnail: string
+gallery: string[]
+testimonial?: {
+quote: string
+author: string
+role: string
+}
+}
+
+```
 
 3. **TeamMember Type**
-   ```
-   type TeamMember = {
-     id: string
-     name: string
-     role: string
-     image: string
-     bio?: string
-   }
-   ```
+```
+
+type TeamMember = {
+id: string
+name: string
+role: string
+image: string
+bio?: string
+}
+
+```
 
 4. **ContactFormData Type**
-   ```
-   type ContactFormData = {
-     name: string
-     email: string
-     company?: string
-     service: 'strategy' | 'content' | 'pr' | 'influencer' | 'production' | 'other'
-     brief: string
-   }
-   ```
+```
+
+type ContactFormData = {
+name: string
+email: string
+company?: string
+service: 'strategy' | 'content' | 'pr' | 'influencer' | 'production' | 'other'
+brief: string
+}
+
+```
 
 Create data/services.ts with all 6 services data.
 Create data/caseStudies.ts with 2-3 sample case studies (use placeholders for now).
@@ -848,7 +857,7 @@ Setup SEO for PixiGrow Media website.
        "telephone": "contact@pixigrowmedia.com",
        "url": "pixigrowmedia.com"
      }
-   
+
    - Organization schema:
      {
        "@type": "Organization",
@@ -869,15 +878,17 @@ Setup SEO for PixiGrow Media website.
      - /careers (if applicable)
 
 6. **robots.txt** (public/robots.txt)
-   ```
-   User-agent: *
-   Allow: /
-   Sitemap: https://pixigrowmedia.com/sitemap.xml
-   ```
+```
+
+User-agent: \*
+Allow: /
+Sitemap: https://pixigrow-media.vercel.app/sitemap.xml
+
+```
 
 7. **Canonical URLs**
-   - Add canonical meta tag to all pages
-   - Format: https://pixigrowmedia.com[pathname]
+- Add canonical meta tag to all pages
+- Format: https://pixigrow-media.vercel.app[pathname]
 
 Test with Google Search Console + Lighthouse SEO audit.
 ```
@@ -886,14 +897,14 @@ Test with Google Search Console + Lighthouse SEO audit.
 
 ## PROMPT 19: Image Optimization & Performance
 
-```
+````
 Optimize images and performance for PixiGrow Media website.
 
 1. **Image Optimization**
    - Use Next.js Image component for all images
    - Add responsive sizes:
      ```
-     <Image 
+     <Image
        src={...}
        alt="..."
        width={1200}
@@ -934,7 +945,7 @@ Optimize images and performance for PixiGrow Media website.
    - Lazy load non-critical CSS
 
 Test with PageSpeed Insights. Optimize until all metrics are green.
-```
+````
 
 ---
 
@@ -954,7 +965,7 @@ For Production (Phase 2):
    - Setup: https://developers.instagram.com/docs/instagram-basic-display-api/
    - Requires: access token, app setup
    - Fetch latest 9 posts via API
-   
+
 2. Alternative (simpler):
    - Use Behold.so widget (embeddable, no API needed)
    - Embed code in component
@@ -971,7 +982,7 @@ For now, leave placeholder visible. Add note "Instagram feed integration Phase 2
 
 ## PROMPT 21: Form Submission Setup (Email Integration)
 
-```
+````
 Setup contact form submission to email for PixiGrow Media.
 
 1. **Email Service Choice:** Resend (recommended for Next.js)
@@ -1016,7 +1027,7 @@ Setup contact form submission to email for PixiGrow Media.
    - Return clear error messages to frontend
 
 Test form submission end-to-end locally + production.
-```
+````
 
 ---
 

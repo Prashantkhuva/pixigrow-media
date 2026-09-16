@@ -1,10 +1,11 @@
-const baseUrl = "https://pixigrowmedia.com";
+const baseUrl = "https://pixigrow-media.vercel.app";
 
 export const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "PixiGrow Media",
-  description: "360° brand agency offering strategy, celebrity partnerships, PR, production, and performance marketing.",
+  description:
+    "360° brand agency offering strategy, celebrity partnerships, PR, production, and performance marketing.",
   url: baseUrl,
   telephone: "contact@pixigrowmedia.com",
   email: "contact@pixigrowmedia.com",

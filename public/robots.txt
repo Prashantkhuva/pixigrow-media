@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pixigrowmedia.com/sitemap.xml
+Sitemap: https://pixigrow-media.vercel.app/sitemap.xml
