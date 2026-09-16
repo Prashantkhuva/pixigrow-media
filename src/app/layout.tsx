@@ -30,10 +30,10 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "PixiGrow Media",
-    url: "https://pixigrowmedia.com",
+    url: "https://pixigrow-media.vercel.app",
     images: [
       {
-        url: "https://pixigrowmedia.com/og-image.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "PixiGrow Media",
@@ -44,13 +44,13 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "PixiGrow Media - 360° Brand Agency Rajkot",
     description: "Strategy, Celebs, PR & IPs. We do it all.",
-    images: ["https://pixigrowmedia.com/og-image.png"],
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
     follow: true,
   },
-  metadataBase: new URL("https://pixigrowmedia.com"),
+  metadataBase: new URL("https://pixigrow-media.vercel.app"),
   alternates: {
     canonical: "/",
   },
