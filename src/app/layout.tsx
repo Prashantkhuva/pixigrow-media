@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import { Navigation, Footer, LenisProvider, PageTransition } from "@/components";
-import { localBusinessSchema, organizationSchema, websiteSchema } from "@/lib/schema";
+import { localBusinessSchema, organizationSchema, websiteSchema, faqSchema } from "@/lib/schema";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -70,6 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               localBusinessSchema,
               organizationSchema,
               websiteSchema,
+              faqSchema,
             ]),
           }}
         />

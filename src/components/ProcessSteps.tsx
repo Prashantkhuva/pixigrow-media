@@ -1,6 +1,14 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { Section, Container, Heading, Grid } from "@/components";
+import { DecorativeLeaf, DecorativeSquiggle } from "./SvgDecorations";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const steps = [
   {
@@ -30,8 +38,44 @@ const steps = [
 ];
 
 export default function ProcessSteps() {
+  const stepsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!stepsRef.current) return;
+
+    const steps = stepsRef.current.querySelectorAll(".process-step");
+    if (steps.length === 0) return;
+
+    gsap.set(steps, { opacity: 0, y: 40 });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: stepsRef.current,
+        start: "top 80%",
+        toggleActions: "play none none none",
+      },
+    });
+
+    tl.to(steps, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      stagger: 0.15,
+      ease: "power3.out",
+    });
+
+    return () => {
+      tl.scrollTrigger?.kill();
+      tl.kill();
+    };
+  }, []);
+
   return (
-    <section className="py-16 md:py-24 bg-light">
+    <section className="relative py-16 md:py-24 bg-light overflow-hidden">
+      {/* Decorative elements */}
+      <DecorativeLeaf position="top-right" size="sm" className="opacity-25" />
+      <DecorativeSquiggle className="bottom-20 right-10 hidden md:block" color="#d4f53b" />
+
       <Container>
         <Heading variant="h2" center>
           How we work
@@ -40,13 +84,12 @@ export default function ProcessSteps() {
           A simple, proven process that delivers results every time.
         </p>
 
-        <div className="mt-12">
+        <div ref={stepsRef} className="mt-12">
           <Grid cols={4}>
-            {steps.map((step, index) => (
+            {steps.map((step) => (
               <div
                 key={step.number}
-                className="process-step text-center animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="process-step text-center"
               >
                 <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-xl font-bold mx-auto">
                   {step.number}

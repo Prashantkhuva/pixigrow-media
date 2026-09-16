@@ -1,9 +1,19 @@
+import { ReactNode } from "react";
+import {
+  ContentCreationIcon,
+  SocialMediaIcon,
+  PerformanceMarketingIcon,
+  BrandingIcon,
+  AiSolutionsIcon,
+  CrmAutomationIcon,
+} from "@/components/icons/ServiceIcons";
+
 export interface Service {
   slug: string;
   title: string;
   tagline: string;
   description: string;
-  icon: string;
+  icon: ReactNode;
   included: string[];
   whyItMatters: string;
 }
@@ -15,7 +25,7 @@ export const services: Service[] = [
     tagline: "Scroll-stopping content that converts",
     description:
       "We create high-quality videos, reels, graphics, and copy that your audience actually wants to engage with. From AI-powered video editing to campaign creatives — we handle it all.",
-    icon: "🎬",
+    icon: <ContentCreationIcon size={28} />,
     included: [
       "Short-form video (Reels, Shorts, TikTok)",
       "Long-form video (YouTube, brand films)",
@@ -33,7 +43,7 @@ export const services: Service[] = [
     tagline: "Build community, drive engagement",
     description:
       "Complete social media management — from strategy and content calendar to posting and community management. We grow your presence on Instagram, YouTube, LinkedIn, and beyond.",
-    icon: "📱",
+    icon: <SocialMediaIcon size={28} />,
     included: [
       "Instagram management & growth",
       "YouTube channel management",
@@ -51,7 +61,7 @@ export const services: Service[] = [
     tagline: "Data-driven ads that deliver ROI",
     description:
       "We run targeted ad campaigns on Meta, Google, and YouTube that maximize your budget. Every rupee is tracked, every conversion is measured.",
-    icon: "📈",
+    icon: <PerformanceMarketingIcon size={28} />,
     included: [
       "Meta Ads (Instagram + Facebook)",
       "Google Ads (Search + Display)",
@@ -69,7 +79,7 @@ export const services: Service[] = [
     tagline: "Brand identity that resonates",
     description:
       "From logo design to complete brand systems — we build brands that look premium and feel authentic. Your visual identity, tone of voice, and brand guidelines, all under one roof.",
-    icon: "🎨",
+    icon: <BrandingIcon size={28} />,
     included: [
       "Logo design & brand identity",
       "Brand guidelines & style guide",
@@ -87,7 +97,7 @@ export const services: Service[] = [
     tagline: "Smart marketing with AI power",
     description:
       "We leverage AI tools for content creation, video editing, analytics, and automation. Stay ahead of the curve with cutting-edge AI-powered marketing solutions.",
-    icon: "🤖",
+    icon: <AiSolutionsIcon size={28} />,
     included: [
       "AI video generation & editing",
       "AI-powered content suggestions",
@@ -105,7 +115,7 @@ export const services: Service[] = [
     tagline: "Automate, nurture, convert",
     description:
       "Set up CRM systems, email funnels, and WhatsApp automation to nurture leads and convert prospects into customers. We streamline your sales process.",
-    icon: "⚙️",
+    icon: <CrmAutomationIcon size={28} />,
     included: [
       "CRM setup & integration",
       "Email marketing funnels",

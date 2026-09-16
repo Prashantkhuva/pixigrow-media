@@ -2,25 +2,30 @@
 
 import Image from "next/image";
 import { Section, Container, Heading, Grid, Card, IconBox, Button } from "@/components";
+import {
+  ContentCreationIcon,
+  PerformanceMarketingIcon,
+  AiSolutionsIcon,
+} from "@/components/icons/ServiceIcons";
 
 const pillars = [
   {
     id: 1,
-    icon: "🎬",
+    icon: <ContentCreationIcon size={32} />,
     title: "Content That Converts",
     description:
       "We create scroll-stopping videos, reels, and graphics that your audience actually wants to engage with. AI-powered + human creativity.",
   },
   {
     id: 2,
-    icon: "📈",
+    icon: <PerformanceMarketingIcon size={32} />,
     title: "Results, Not Vanity",
     description:
       "We don't do vanity metrics. Every campaign is measured against real business outcomes — leads, sales, and growth.",
   },
   {
     id: 3,
-    icon: "🤖",
+    icon: <AiSolutionsIcon size={32} />,
     title: "AI-First Approach",
     description:
       "We leverage AI for content creation, video editing, and analytics — delivering premium results at startup-friendly costs.",

@@ -1,6 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components";
+import {
+  InstagramIcon,
+  LinkedInIcon,
+  TwitterIcon,
+  YouTubeIcon,
+} from "./icons/SocialIcons";
 
 const serviceLinks = [
   { label: "Strategy", href: "/services/strategy" },
@@ -112,7 +118,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-accent transition-colors duration-200"
               >
-                IG
+                <InstagramIcon size={20} />
               </a>
               <a
                 href="https://linkedin.com/company/pixigrowmedia"
@@ -120,12 +126,28 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-accent transition-colors duration-200"
               >
-                LinkedIn
+                <LinkedInIcon size={20} />
+              </a>
+              <a
+                href="https://twitter.com/pixigrowmedia"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-accent transition-colors duration-200"
+              >
+                <TwitterIcon size={20} />
+              </a>
+              <a
+                href="https://youtube.com/@pixigrowmedia"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-accent transition-colors duration-200"
+              >
+                <YouTubeIcon size={20} />
               </a>
             </div>
           </div>
           <p className="text-xs text-gray-600">
-            PixiGrow Media © 2025. All rights reserved.
+            PixiGrow Media © 2026. All rights reserved.
           </p>
         </div>
       </Container>

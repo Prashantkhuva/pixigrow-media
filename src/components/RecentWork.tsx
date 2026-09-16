@@ -1,11 +1,55 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { Section, Container, Heading, Button } from "@/components";
 import { caseStudies } from "@/data/caseStudies";
+import { DecorativeLeaf, DecorativeSquiggle } from "./SvgDecorations";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function RecentWork() {
+  const itemsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!itemsRef.current) return;
+
+    const items = itemsRef.current.querySelectorAll(".work-item");
+    if (items.length === 0) return;
+
+    gsap.set(items, { opacity: 0, y: 40 });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: itemsRef.current,
+        start: "top 80%",
+        toggleActions: "play none none none",
+      },
+    });
+
+    tl.to(items, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      stagger: 0.15,
+      ease: "power3.out",
+    });
+
+    return () => {
+      tl.scrollTrigger?.kill();
+      tl.kill();
+    };
+  }, []);
+
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="relative py-16 md:py-24 bg-white overflow-hidden">
+      {/* Decorative elements */}
+      <DecorativeLeaf position="top-left" size="sm" className="opacity-20" />
+      <DecorativeSquiggle className="bottom-10 left-10 hidden md:block" color="#2a3bf5" />
+
       <Container>
         <Heading variant="h2" center>
           Recent work
@@ -14,13 +58,12 @@ export default function RecentWork() {
           Real results for real brands. Here&apos;s how we&apos;ve helped businesses grow.
         </p>
 
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-          {caseStudies.slice(0, 2).map((study, index) => (
+        <div ref={itemsRef} className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+          {caseStudies.slice(0, 2).map((study) => (
             <a
               key={study.slug}
               href={`/work/${study.slug}`}
-              className="work-item group animate-fade-in-up"
-              style={{ animationDelay: `${index * 0.15}s` }}
+              className="work-item group"
             >
               <div className="bg-light rounded-lg border border-border overflow-hidden hover:border-primary transition-colors">
                 <div

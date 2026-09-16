@@ -20,3 +20,27 @@ export { default as OptimizedImage } from "./OptimizedImage";
 export { default as PageTransition } from "./PageTransition";
 export { default as SectionReveal } from "./SectionReveal";
 export { default as BrandStrip } from "./BrandStrip";
+export { default as Stats } from "./Stats";
+export { default as Testimonials } from "./Testimonials";
+export { default as Faq } from "./Faq";
+export {
+  DecorativeLeaf,
+  DecorativeTexture,
+  DecorativeDots,
+  DecorativeSquiggle,
+} from "./SvgDecorations";
+export {
+  ContentCreationIcon,
+  SocialMediaIcon,
+  PerformanceMarketingIcon,
+  BrandingIcon,
+  AiSolutionsIcon,
+  CrmAutomationIcon,
+} from "./icons/ServiceIcons";
+export {
+  InstagramIcon,
+  LinkedInIcon,
+  TwitterIcon,
+  YouTubeIcon,
+  FacebookIcon,
+} from "./icons/SocialIcons";

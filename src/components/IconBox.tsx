@@ -4,16 +4,24 @@ interface IconBoxProps {
   children: React.ReactNode;
   size?: "md" | "lg";
   className?: string;
+  variant?: "accent" | "primary";
 }
 
-export default function IconBox({ children, size = "md", className }: IconBoxProps) {
+export default function IconBox({
+  children,
+  size = "md",
+  className,
+  variant = "accent",
+}: IconBoxProps) {
   return (
     <div
       className={clsx(
-        "bg-accent flex items-center justify-center rounded-lg",
+        "flex items-center justify-center rounded-lg",
         {
-          "w-12 h-12 text-xl": size === "md",
-          "w-16 h-16 text-2xl": size === "lg",
+          "w-12 h-12": size === "md",
+          "w-16 h-16": size === "lg",
+          "bg-accent text-dark": variant === "accent",
+          "bg-primary text-white": variant === "primary",
         },
         className
       )}
