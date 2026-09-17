@@ -8,7 +8,6 @@ import {
   ProcessSteps,
   Testimonials,
   Faq,
-  InstagramFeed,
   CTABand,
 } from "@/components";
 
@@ -23,7 +22,6 @@ export default function Home() {
       <VideoShowcase />
       <ProcessSteps />
       <Testimonials />
-      <InstagramFeed />
       <Faq />
       <CTABand />
     </>

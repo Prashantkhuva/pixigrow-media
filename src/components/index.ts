@@ -11,7 +11,6 @@ export { default as TrustStrip } from "./TrustStrip";
 export { default as ServicesGrid } from "./ServicesGrid";
 export { default as RecentWork } from "./RecentWork";
 export { default as ProcessSteps } from "./ProcessSteps";
-export { default as InstagramFeed } from "./InstagramFeed";
 export { default as CTABand } from "./CTABand";
 export { default as Footer } from "./Footer";
 export { default as Navigation } from "./Navigation";
