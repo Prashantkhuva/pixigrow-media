@@ -47,20 +47,22 @@ export default function ProcessSteps() {
     if (steps.length === 0) return;
 
     const ctx = gsap.context(() => {
-      gsap.set(steps, { opacity: 0, y: 40 });
+      steps.forEach((step, i) => {
+        gsap.set(step, { opacity: 0, y: 40 });
 
-      gsap.to(steps, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.15,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: stepsRef.current,
-          start: "top 90%",
-          toggleActions: "play none none none",
-          once: true,
-        },
+        gsap.to(step, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: step,
+            start: "top 95%",
+            toggleActions: "play none none none",
+            once: true,
+          },
+          delay: i * 0.1,
+        });
       });
     }, stepsRef);
 

@@ -21,20 +21,22 @@ export default function RecentWork() {
     if (items.length === 0) return;
 
     const ctx = gsap.context(() => {
-      gsap.set(items, { opacity: 0, y: 40 });
+      items.forEach((item, i) => {
+        gsap.set(item, { opacity: 0, y: 40 });
 
-      gsap.to(items, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.15,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: itemsRef.current,
-          start: "top 90%",
-          toggleActions: "play none none none",
-          once: true,
-        },
+        gsap.to(item, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 95%",
+            toggleActions: "play none none none",
+            once: true,
+          },
+          delay: i * 0.1,
+        });
       });
     }, itemsRef);
 
