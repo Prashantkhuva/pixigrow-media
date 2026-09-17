@@ -1,11 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { Container, Heading } from "@/components";
 import { videos } from "@/data/videos";
 import { DecorativeLeaf, DecorativeSquiggle } from "./SvgDecorations";
-import VideoModal from "./VideoModal";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -15,16 +13,11 @@ if (typeof window !== "undefined") {
 
 export default function VideoShowcase() {
   const gridRef = useRef<HTMLDivElement>(null);
-  const [modal, setModal] = useState<{
-    src: string;
-    poster?: string;
-    title: string;
-  } | null>(null);
 
   useEffect(() => {
     if (!gridRef.current) return;
 
-    const cards = gridRef.current.querySelectorAll(".video-card");
+    const cards = gridRef.current.querySelectorAll(".video-reel-card");
     if (cards.length === 0) return;
 
     const ctx = gsap.context(() => {
@@ -42,7 +35,7 @@ export default function VideoShowcase() {
             toggleActions: "play none none none",
             once: true,
           },
-          delay: i * 0.08,
+          delay: (i % 3) * 0.1,
         });
       });
     }, gridRef);
@@ -74,68 +67,37 @@ export default function VideoShowcase() {
 
         <div
           ref={gridRef}
-          className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-4 max-w-5xl mx-auto"
         >
           {videos.map((video) => (
-            <button
+            <div
               key={video.id}
-              className="video-card group text-left"
-              onClick={() =>
-                setModal({
-                  src: video.videoSrc,
-                  poster: video.poster,
-                  title: video.title,
-                })
-              }
+              className="video-reel-card relative rounded-xl overflow-hidden border border-border bg-dark group"
             >
-              <div className="relative rounded-xl overflow-hidden border border-border hover:border-primary transition-colors bg-light">
-                {/* Poster / Thumbnail */}
-                <div className="relative aspect-video overflow-hidden">
-                  <Image
-                    src={video.poster}
-                    alt={video.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
+              {/* Portrait 9:16 aspect ratio */}
+              <div className="relative w-full" style={{ aspectRatio: "9/16" }}>
+                <iframe
+                  loading="lazy"
+                  title={`${video.title} - PixiGrow Media`}
+                  src={`https://play.gumlet.io/embed/${video.gumletId}?autoplay=true&loop=true&mute=true&controls=false`}
+                  allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
+                  className="absolute inset-0 w-full h-full border-none"
+                />
 
-                  {/* Play button overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-dark/20 group-hover:bg-dark/40 transition-colors">
-                    <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                      <svg
-                        className="w-6 h-6 text-dark ml-1"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Info */}
-                <div className="p-4">
-                  <span className="text-xs font-medium text-primary">
+                {/* Subtle brand overlay at bottom */}
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-dark/80 via-dark/30 to-transparent p-3 sm:p-4 pointer-events-none">
+                  <span className="text-[10px] sm:text-xs font-medium text-accent tracking-wide uppercase">
                     {video.category}
                   </span>
-                  <h3 className="mt-1 text-base font-semibold text-dark group-hover:text-primary transition-colors">
+                  <h3 className="text-xs sm:text-sm font-semibold text-white mt-0.5 leading-tight">
                     {video.title}
                   </h3>
                 </div>
               </div>
-            </button>
+            </div>
           ))}
         </div>
       </Container>
-
-      {/* Video Modal */}
-      <VideoModal
-        isOpen={modal !== null}
-        onClose={() => setModal(null)}
-        videoSrc={modal?.src ?? ""}
-        poster={modal?.poster}
-        title={modal?.title ?? ""}
-      />
     </section>
   );
 }

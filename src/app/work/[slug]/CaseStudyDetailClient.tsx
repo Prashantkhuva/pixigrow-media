@@ -18,16 +18,15 @@ export default function CaseStudyDetailClient({
       {video ? (
         <div className="bg-dark">
           <div className="max-w-5xl mx-auto">
-            <video
-              src={video.videoSrc}
-              poster={video.poster}
-              controls
-              playsInline
-              preload="metadata"
-              className="w-full aspect-video"
-            >
-              Your browser does not support the video tag.
-            </video>
+            <div className="relative w-full" style={{ aspectRatio: "9/16", maxHeight: "70vh", margin: "0 auto" }}>
+              <iframe
+                loading="lazy"
+                title={`${video.title} - PixiGrow Media`}
+                src={`https://play.gumlet.io/embed/${video.gumletId}?autoplay=true&loop=true&mute=true&controls=false`}
+                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
+                className="absolute inset-0 w-full h-full border-none"
+              />
+            </div>
           </div>
         </div>
       ) : (

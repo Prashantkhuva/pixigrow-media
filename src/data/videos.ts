@@ -3,8 +3,7 @@ export interface VideoItem {
   title: string;
   client: string;
   category: string;
-  videoSrc: string;
-  poster: string;
+  gumletId: string;
   caseStudySlug?: string;
 }
 
@@ -14,8 +13,7 @@ export const videos: VideoItem[] = [
     title: "Aaloki Brand Launch",
     client: "Aaloki",
     category: "Branding",
-    videoSrc: "/videos/aaloki.mp4",
-    poster: "/videos/aaloki-poster.jpg",
+    gumletId: "6aabe04d490dbfc4f4b44e24",
     caseStudySlug: "aaloki-brand-launch",
   },
   {
@@ -23,39 +21,34 @@ export const videos: VideoItem[] = [
     title: "Kurkure Campaign",
     client: "Kurkure",
     category: "Content Creation",
-    videoSrc: "/videos/kurkure.mp4",
-    poster: "/videos/kurkure-poster.jpg",
+    gumletId: "6aabe04d490dbfc4f4b44e25",
   },
   {
     id: "lenovo",
     title: "Lenovo Collaboration",
     client: "Lenovo",
     category: "Performance Marketing",
-    videoSrc: "/videos/Lenovo.mp4",
-    poster: "/videos/lenovo-poster.jpg",
+    gumletId: "6aabe04d490dbfc4f4b44e25",
   },
   {
     id: "poojara",
     title: "Poojara x Samsung",
     client: "Poojara",
     category: "Social Media",
-    videoSrc: "/videos/poojara%20x%20samsung.mp4",
-    poster: "/videos/poojara-poster.jpg",
+    gumletId: "6aabe04d4b9588fb8c4cb643",
   },
   {
     id: "ramanta",
     title: "Ramanta x Tara Sutaria",
     client: "Ramanta",
     category: "Celebrity PR",
-    videoSrc: "/videos/Ramanta%20x%20tara%20sutaria.mp4",
-    poster: "/videos/ramanta-poster.jpg",
+    gumletId: "6aabe04d490dbfc4f4b44e22",
   },
   {
     id: "sidecash",
     title: "Sidecase AI",
     client: "Sidecase AI",
     category: "Brand Strategy",
-    videoSrc: "/videos/sidecase%20ai.mp4",
-    poster: "/videos/sidecash-ai-poster.jpg",
+    gumletId: "6aabe04d490dbfc4f4b44e23",
   },
 ];
