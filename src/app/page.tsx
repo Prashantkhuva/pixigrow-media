@@ -4,6 +4,7 @@ import {
   Stats,
   ServicesGrid,
   RecentWork,
+  VideoShowcase,
   ProcessSteps,
   Testimonials,
   Faq,
@@ -19,6 +20,7 @@ export default function Home() {
       <Stats />
       <ServicesGrid />
       <RecentWork />
+      <VideoShowcase />
       <ProcessSteps />
       <Testimonials />
       <InstagramFeed />

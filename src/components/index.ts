@@ -23,6 +23,8 @@ export { default as BrandStrip } from "./BrandStrip";
 export { default as Stats } from "./Stats";
 export { default as Testimonials } from "./Testimonials";
 export { default as Faq } from "./Faq";
+export { default as VideoShowcase } from "./VideoShowcase";
+export { default as VideoModal } from "./VideoModal";
 export {
   DecorativeLeaf,
   DecorativeTexture,

@@ -3,18 +3,38 @@
 import Link from "next/link";
 import { CaseStudy } from "@/data/caseStudies";
 import { Section, Container, Heading, Button } from "@/components";
+import { videos } from "@/data/videos";
 
 export default function CaseStudyDetailClient({
   study,
 }: {
   study: CaseStudy;
 }) {
+  const video = videos.find((v) => v.caseStudySlug === study.slug);
+
   return (
     <>
-      {/* Hero Image */}
-      <div
-        className={`h-[300px] md:h-[500px] bg-gradient-to-br ${study.gradient}`}
-      />
+      {/* Hero — Video or Gradient */}
+      {video ? (
+        <div className="bg-dark">
+          <div className="max-w-5xl mx-auto">
+            <video
+              src={video.videoSrc}
+              poster={video.poster}
+              controls
+              playsInline
+              preload="metadata"
+              className="w-full aspect-video"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      ) : (
+        <div
+          className={`h-[300px] md:h-[500px] bg-gradient-to-br ${study.gradient}`}
+        />
+      )}
 
       {/* Overview Block */}
       <Section bg="white">
