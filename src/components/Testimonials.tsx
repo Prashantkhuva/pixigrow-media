@@ -47,27 +47,29 @@ export default function Testimonials() {
     const cards = cardsRef.current.querySelectorAll(".testimonial-card");
     if (cards.length === 0) return;
 
-    gsap.set(cards, { opacity: 0, y: 40 });
+    const ctx = gsap.context(() => {
+      gsap.set(cards, { opacity: 0, y: 40 });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: cardsRef.current,
-        start: "top 80%",
-        toggleActions: "play none none none",
-      },
-    });
+      gsap.to(cards, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: cardsRef.current,
+          start: "top 90%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+      });
+    }, cardsRef);
 
-    tl.to(cards, {
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      stagger: 0.1,
-      ease: "power3.out",
-    });
+    const timer = setTimeout(() => ScrollTrigger.refresh(), 200);
 
     return () => {
-      tl.scrollTrigger?.kill();
-      tl.kill();
+      ctx.revert();
+      clearTimeout(timer);
     };
   }, []);
 

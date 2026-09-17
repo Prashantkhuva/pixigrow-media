@@ -16,26 +16,28 @@ export default function CTABand() {
   useEffect(() => {
     if (!contentRef.current) return;
 
-    gsap.set(contentRef.current, { opacity: 0, y: 30 });
+    const ctx = gsap.context(() => {
+      gsap.set(contentRef.current, { opacity: 0, y: 30 });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: contentRef.current,
-        start: "top 85%",
-        toggleActions: "play none none none",
-      },
-    });
+      gsap.to(contentRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: contentRef.current,
+          start: "top 90%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+      });
+    }, contentRef);
 
-    tl.to(contentRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: "power3.out",
-    });
+    const timer = setTimeout(() => ScrollTrigger.refresh(), 200);
 
     return () => {
-      tl.scrollTrigger?.kill();
-      tl.kill();
+      ctx.revert();
+      clearTimeout(timer);
     };
   }, []);
 

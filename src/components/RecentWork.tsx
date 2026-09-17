@@ -20,27 +20,29 @@ export default function RecentWork() {
     const items = itemsRef.current.querySelectorAll(".work-item");
     if (items.length === 0) return;
 
-    gsap.set(items, { opacity: 0, y: 40 });
+    const ctx = gsap.context(() => {
+      gsap.set(items, { opacity: 0, y: 40 });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: itemsRef.current,
-        start: "top 80%",
-        toggleActions: "play none none none",
-      },
-    });
+      gsap.to(items, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: itemsRef.current,
+          start: "top 90%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+      });
+    }, itemsRef);
 
-    tl.to(items, {
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      stagger: 0.15,
-      ease: "power3.out",
-    });
+    const timer = setTimeout(() => ScrollTrigger.refresh(), 200);
 
     return () => {
-      tl.scrollTrigger?.kill();
-      tl.kill();
+      ctx.revert();
+      clearTimeout(timer);
     };
   }, []);
 
