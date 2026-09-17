@@ -184,42 +184,48 @@ export default function Navigation() {
       {/* Mobile Menu */}
       <div
         ref={mobileMenuRef}
-        className="md:hidden"
+        className="md:hidden fixed top-16 md:top-20 left-0 right-0 z-40"
         style={{ display: "none", height: 0, overflow: "hidden" }}
       >
-        <div className="bg-white/95 backdrop-blur-xl border-t border-border">
+        <div className="bg-white/95 backdrop-blur-xl border-t border-border shadow-lg shadow-black/5">
           <Container>
-            <div className="py-6 space-y-1">
-              {navLinks.map((link, index) => (
-                <Link
-                  key={link.href}
-                  ref={(el) => { linksRef.current[index] = el; }}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={clsx(
-                    "block py-3 px-4 text-base font-medium rounded-xl transition-colors duration-200",
-                    pathname === link.href
-                      ? "text-primary bg-primary/5"
-                      : "text-dark hover:text-primary hover:bg-light"
-                  )}
-                >
-                  <span className="flex items-center gap-3">
+            <div className="py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+              {/* Links */}
+              <div className="space-y-0.5">
+                {navLinks.map((link, index) => (
+                  <Link
+                    key={link.href}
+                    ref={(el) => { linksRef.current[index] = el; }}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={clsx(
+                      "flex items-center gap-3 py-3.5 px-4 text-[15px] font-medium rounded-xl transition-all duration-200",
+                      pathname === link.href
+                        ? "text-primary bg-primary/5"
+                        : "text-dark hover:text-primary hover:bg-light active:scale-[0.98]"
+                    )}
+                  >
                     <span
                       className={clsx(
-                        "w-1.5 h-1.5 rounded-full transition-colors",
+                        "w-1.5 h-1.5 rounded-full shrink-0 transition-colors",
                         pathname === link.href ? "bg-primary" : "bg-transparent"
                       )}
                     />
                     {link.label}
-                  </span>
-                </Link>
-              ))}
-              <div className="pt-4 px-4">
+                  </Link>
+                ))}
+              </div>
+
+              {/* Divider */}
+              <div className="my-4 border-t border-border" />
+
+              {/* CTA */}
+              <div className="px-1">
                 <Button
                   variant="primary"
                   size="md"
                   href="/contact"
-                  className="w-full"
+                  className="w-full text-center"
                 >
                   Let&apos;s talk
                 </Button>
